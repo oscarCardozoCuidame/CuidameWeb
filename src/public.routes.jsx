@@ -6,7 +6,7 @@ import SolutionsLayout from "./layouts/Solutions/Solutions.layout.module";
 const PublicRoutes = () => {
   return (
     <Routes>
-      <Route path="/inicio/*" element={<HomeLayout />} />
+      <Route path="/" element={<HomeLayout />} />
       <Route path="/market/*" element={<MarketLayout />} />
       <Route path="/solutions/*" element={<SolutionsLayout />} />
     </Routes>
