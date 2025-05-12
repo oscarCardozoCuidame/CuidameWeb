@@ -20,7 +20,7 @@ interface HeaderProps {
               <a href="https://www.instagram.com/cuidamehealth?igsh=MWZ2Nnl1ZnI4dXljag==" id='health'><img style={{ width: '1.5rem' }} src="/SocialMedia/instagram.svg" alt="Instagram" /></a>
               <a href="https://www.instagram.com/cuidamepets?igsh=OG5pdGoxbW1pOXRr" id='pets'><img style={{ width: '0.9rem' }} src="/SocialMedia/facebook.svg" alt="Facebook" /></a>
             </div>
-            {/*}
+            {/*
             <div className="footer__social">
               <a href="#"><img style={{ width: '1.5rem' }} src="/SocialMedia/instagram.svg" alt="Instagram" /></a>
               <a href="#"><img style={{ width: '0.9rem' }} src="/SocialMedia/facebook.svg" alt="Facebook" /></a>
@@ -34,6 +34,7 @@ interface HeaderProps {
             <p>Tunja</p>
             <p>Boyacá, Colombia</p>
           </div>
+          {/*
           <div className="footer__section">
             <h4>Accesos rápidos</h4>
             <a href="/">Inicio</a>
@@ -41,6 +42,7 @@ interface HeaderProps {
             <a href="/soluciones">Soluciones</a>
             <a href="/trabaja">Trabaja con nosotros</a>
           </div>
+          */}
         </div>
       </div>
     </footer>
