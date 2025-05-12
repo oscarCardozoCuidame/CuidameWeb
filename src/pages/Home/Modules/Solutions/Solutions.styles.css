@@ -1,0 +1,132 @@
+.solutions {
+  height: 50vh;
+  position: relative;
+  z-index: 5;
+}
+
+.solutions h1 {
+  color: var(--color-purple-2);
+  margin-left: 10%;
+  margin-bottom: 2rem;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.solutions__container {
+  height: 75%;
+  width: 100%;
+  padding: 2rem 10%;
+  display: flex;
+  box-sizing: border-box;
+  gap: 2rem;
+  transition: all 0.3s ease;
+}
+
+.solutions__initial__card {
+  position: relative;
+}
+
+.health {
+  flex: 2;
+  transition: flex 0.4s ease;
+}
+
+.pets {
+  flex: 1;
+  transition: flex 0.4s ease;
+}
+
+.health .info__container {
+  background-color: rgba(var(--color-purple-3-rgb), 0.75);
+}
+
+.pets .info__container {
+  background-color: rgba(var(--color-purple-1-rgb), 1);
+}
+
+.img__background {
+  height: 100%;
+  width: 100%;
+}
+
+.img__background img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.solutions__initial__card .info__container {
+  height: 100%;
+  width: 100%;
+  padding: 1rem 3rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  transition: background-color 0.4s ease;
+}
+
+.solutions__initial__card .info__container h2 {
+  color: rgb(255, 136, 0);
+  font-size: 2rem;
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.solutions__initial__card .info__container p {
+  color: var(--color-white);
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: start;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.solutions__initial__card .info__container .btn {
+  width: auto;
+  padding: 0.5rem 1rem;
+  align-self: flex-end;
+  font-size: 1rem;
+}
+
+.img__background img,
+.solutions__initial__card .info__container {
+  border-radius: 2.5rem;
+}
+
+/* -------------- ANIMACIONES -------------- */
+
+.solutions__container:hover .pets:hover {
+  flex: 2;
+}
+
+.solutions__container:hover .health:not(:hover) {
+  flex: 1;
+}
+
+.solutions__container:hover .health:hover {
+  flex: 2;
+}
+
+.solutions__container:hover .pets:not(:hover) {
+  flex: 1;
+}
+
+.health:hover .info__container {
+  background-color: rgba(var(--color-purple-3-rgb), 0.75);
+}
+
+.pets:hover .info__container {
+  background-color: rgba(var(--color-purple-1-rgb), 0.75);
+}
+
+.solutions__container:has(.pets:hover) .health .info__container {
+  background-color: rgba(var(--color-purple-3-rgb), 1);
+}
+  

@@ -1,0 +1,82 @@
+.reviews {
+    height: 75vh;
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .reviews-slides {
+    position: relative;
+    min-height: 175px;
+  }
+
+  .reviews-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .reviews-slide.active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .reviews-text {
+    color: var(--color-purple-2);
+    margin: 0 20%;
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .reviews-author {
+    color: var(--color-purple-2);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .slide-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .slide-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #bbb;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .slide-indicator.active {
+    background-color: #5A287D;
+    width: 24px;
+    border-radius: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .reviews-text {
+      font-size: 1rem;
+    }
+    
+    .reviews-author {
+      font-size: 0.875rem;
+    }
+  }

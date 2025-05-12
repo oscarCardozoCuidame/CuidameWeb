@@ -1,0 +1,57 @@
+.try_grid {
+  height: 90vh;
+  padding: 2rem 5%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 25px;
+}
+
+.grid_div {
+  color: var(--color-white);
+  height: 100%;
+  width: 100%;
+  padding: 3rem 8%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 2rem;
+}
+
+.grid_div .title {
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+.grid_div .paragraph {
+  font-size: 1.35vw;
+  font-weight: 500;
+}
+
+.div1 {
+  background-color: var(--color-orange);
+  grid-column: span 2 / span 2;
+  grid-row: span 5 / span 5;
+}
+
+.div2 {
+  background-color: var(--color-purple-3);
+  grid-column: span 2 / span 2;
+  grid-row: span 4 / span 4;
+  grid-column-start: 3;
+}
+
+.div3 {
+  background-color: var(--color-orange);
+  grid-column: span 2 / span 2;
+  grid-row: span 4 / span 4;
+  grid-column-start: 5;
+}
+
+.div4 {
+  background-color: var(--color-purple-3);
+  align-items: center;
+  grid-column: span 4 / span 4;
+  grid-column-start: 3;
+}

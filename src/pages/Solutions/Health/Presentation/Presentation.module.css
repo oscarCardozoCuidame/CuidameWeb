@@ -1,0 +1,11 @@
+.presentation {
+  background-color: var(--color-purple-3);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.img_presentation {
+    height: 100%;
+}

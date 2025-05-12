@@ -1,0 +1,42 @@
+.initial {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background-video {
+  height: 90%;
+  width: 95vw;
+  border-radius: 2rem;
+  object-fit: fill;
+  position: relative;
+}
+
+.initial .info__container {
+  color: var(--color-white);
+  max-width: 20rem;
+  position: absolute;
+  bottom: 15%;
+  right: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.initial .info__container .logo {
+  width: 15rem;
+}
+
+.stores__container {
+  display: flex;
+  gap: 15px;
+}
+
+.info__container .btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1.15rem;
+}

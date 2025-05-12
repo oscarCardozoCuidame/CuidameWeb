@@ -1,0 +1,10 @@
+.header {
+    margin: 3rem 0;
+    justify-self: anchor-center;
+    position: absolute;
+    z-index: 10;
+}
+
+.footer {
+    justify-self: anchor-center;
+}
