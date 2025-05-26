@@ -1,6 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./Market.health.module.css";
+import { useResponsiveStyles } from '../../../utils/useResponsiveStyles';
+
+import mobileStyles from "./MarketHealth.mobile.module.css";
+import desktopStyles from "./MarketHealth.desktop.module.css";
 
 // Utilidad para enviar mensajes de WhatsApp
 const sendWhatsAppMessage = (
@@ -41,7 +44,7 @@ interface SelectedColors {
 }
 
 const MarketHealth: React.FC = () => {
-  // Estado para la imagen del brazalete actual
+  const styles = useResponsiveStyles(mobileStyles, desktopStyles);
   const [currentBraceletImage, setCurrentBraceletImage] = useState(
     "/Market/Health/Bracelet/yellow-bracelet.webp"
   );

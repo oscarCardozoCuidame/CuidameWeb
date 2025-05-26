@@ -1,0 +1,29 @@
+.trypage {
+    background-image: url('/public/Home/try-page.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 100vw;
+    position: relative;
+}
+
+.trypage h1{
+    background-color: var(--color-white);
+    color: var(--color-purple-3);
+    max-width: 60%;
+    padding: 1rem 2rem;
+    font-size: 6vw;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    border-radius: 2rem;
+}
+
+.trypage .btn {
+    padding: 1rem 2rem;
+    font-size: 4vw;
+    font-weight: 600;
+    position: absolute;
+    bottom: 15%;
+    right: 10%;
+}

@@ -7,7 +7,7 @@ import Header from '../../components/common/Header/Header';
 import Footer from '../../components/common/Footer/Footer';
 
 // Importamos las páginas del mercado
-import SolutionsHealth from '../../pages/Solutions/Health/Solutions.health';
+import SolutionsHealth from '../../pages/Solutions/Solutions.health';
 
 const SolutionsLayout: React.FC = () => {
   return (

@@ -1,0 +1,33 @@
+.initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background__video {
+  height: 90%;
+  width: 100vw;
+  object-fit: fill;
+  position: relative;
+}
+
+.initial .info__container {
+  color: var(--color-white);
+  position: absolute;
+  right: 1rem;
+}
+
+.initial .info__container .logo {
+  width: 7rem;
+}
+
+.stores__container,
+.info__container h2 {
+  display: none;
+}
+
+.info__container .btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1.15rem;
+}

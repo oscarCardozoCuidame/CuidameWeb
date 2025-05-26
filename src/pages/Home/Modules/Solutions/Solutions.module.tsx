@@ -1,42 +1,46 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
-import './Solutions.styles.css';
+import { useResponsiveStyles } from '../../../../utils/useResponsiveStyles';
+
+import mobileStyles from './Solutions.mobile.module.css';
+import desktopStyles from './Solutions.desktop.module.css';
 import Boton from '../../../../components/ui/Button';
 
 const Solutions: React.FC = () => {
+      const styles = useResponsiveStyles(mobileStyles, desktopStyles);
 
   return (
-<section className="solutions">
-    <h1>SOLUCIONES</h1>
+    <section className={styles.solutions}>
+      <h1>SOLUCIONES</h1>
 
-    <div className="solutions__container">
-        <div className="solutions__initial__card health">
-            <div className="img__background">
+      <div className={styles.solutions__container}>
+        <div className={`${styles.solutions__initial__card} ${styles.health}`}>
+            <div className={styles.img__background}>
                 <img src="/Home/solutions-bg-1.webp" alt="background" />
             </div>
 
-            <div className="info__container">
+            <div className={styles.info__container}>
                 <h2>CUIDAME HEALTH</h2>
 
                 <p>
                     No solo te ofrecemos una aplicación, sino un ecosistema integral 
                     de soluciones diseñadas para brindarte una visión completa de tu bienestar. 
                     Con un enfoque 360°, ponemos a tu disposición herramientas 
-                    que garantizan tu seguridad...
+                    que garantizan tu seguridad
                 </p>
 
                 <NavLink to="/solutions/health">
-                    <Boton className="btn" color="orange" texto=" Más información " />
+                    <Boton className={styles.btn} color="orange" texto=" Más información " />
                 </NavLink>
             </div>
         </div>
 
-        <div className="solutions__initial__card pets">
-            <div className="img__background">
+        <div className={`${styles.solutions__initial__card} ${styles.pets}`}>
+            <div className={styles.img__background}>
                 <img src="/Home/solutions-bg-2.webp" alt="background" />
             </div>
 
-            <div className="info__container">
+            <div className={styles.info__container}>
                 <h2>CUIDAME PETS</h2>
 
                 <p>
@@ -48,13 +52,12 @@ const Solutions: React.FC = () => {
                 </p>
 
                 <NavLink to="/solutions/pets">
-                    <Boton className="btn" color="orange" texto=" Más información " />
+                    <Boton className={styles.btn} color="orange" texto=" Más información " />
                 </NavLink>
             </div>
         </div>
-    </div>
-
-</section>
+      </div>
+    </section>
   );
 };
 

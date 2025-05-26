@@ -1,0 +1,73 @@
+.solutions_card {
+  height: 70vh;
+  width: 100vw;
+  margin: 5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.card_container {
+  height: 75%;
+  width: 90%;
+  margin: 0 5%;
+  box-sizing: content-box;
+  display: flex;
+  border-radius: 3rem;
+}
+
+.start_with_us .card_container {
+  flex-direction: row-reverse;
+}
+
+.left_side {
+  color: var(--color-purple-2);
+  width: 50%;
+  padding: 4rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 1.5vw;
+}
+
+.text_description {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.start_with_us .text_description {
+  align-items: end;
+}
+
+.text_description p {
+  text-align: start;
+  line-height: 1.45;
+}
+
+.right_side {
+  height: 100%;
+  width: 50%;
+}
+
+.right_side img {
+  height: 100%;
+  width: 100%;
+}
+
+.start_with_us .right_side img {
+  object-fit: cover;
+  border-radius: 3rem 0 0 3rem;
+}
+
+.accept_btn {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  width: fit-content;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}

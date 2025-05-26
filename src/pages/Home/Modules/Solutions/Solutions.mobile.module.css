@@ -1,0 +1,85 @@
+.solutions {
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 5;
+}
+
+.solutions h1 {
+  color: var(--color-purple-2);
+  margin-left: 10%;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.solutions__container {
+  height: 100%;
+  width: 100%;
+  padding: 2rem 5%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: 2rem;
+}
+
+.solutions__initial__card {
+  position: relative;
+}
+
+.health .info__container {
+  background-color: rgba(var(--color-purple-3-rgb), 0.75);
+}
+
+.pets .info__container {
+  background-color: rgba(var(--color-purple-1-rgb), 0.75);
+}
+
+.img__background {
+  height: 120%;
+  width: 100%;
+}
+
+.img__background img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.solutions__initial__card .info__container {
+  height: 99%;
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+}
+
+.solutions__initial__card .info__container h2 {
+  color: var(--color-orange);
+  font-size: 1.5rem;
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.solutions__initial__card .info__container p {
+  color: var(--color-white);
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: start;
+  overflow: hidden;
+}
+
+.solutions__initial__card .info__container .btn {
+  margin-top: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.img__background img,
+.solutions__initial__card .info__container {
+  border-radius: 2.5rem;
+}

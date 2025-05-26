@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Reviews.styles.css';
+import { useResponsiveStyles } from '../../../../utils/useResponsiveStyles';
+
+import mobileStyles from './Reviews.mobile.module.css';
+import desktopStyles from './Reviews.desktop.module.css';
 
 interface Review {
   text: string;
@@ -7,6 +10,7 @@ interface Review {
 }
 
 const Reviews: React.FC = () => {
+    const styles = useResponsiveStyles(mobileStyles, desktopStyles);
   const [currentSlide, setCurrentSlide] = useState(0);
   const slidesRef = useRef<HTMLDivElement>(null);
   const indicatorsRef = useRef<HTMLDivElement>(null);
@@ -43,22 +47,22 @@ const Reviews: React.FC = () => {
   }, [currentSlide, reviews.length]);
 
   return (
-    <section className="reviews" style={{ zIndex: 5, position: 'relative' }}>
-      <div className="reviews-slides" ref={slidesRef}>
+    <section className={styles.reviews} style={{ zIndex: 5, position: 'relative' }}>
+      <div className={styles.reviews__slides} ref={slidesRef}>
         {reviews.map((review, index) => (
           <div 
             key={index} 
-            className={`reviews-slide ${index === currentSlide ? 'active' : ''}`}
+            className={`${styles.reviews__slide} ${index === currentSlide ? styles.active : ''}`}
           >
-            <div className="reviews-content">
-              <p className="reviews-text">{review.text}</p>
-              <p className="reviews-author">{review.author}</p>
+            <div className={styles.reviews__content}>
+              <p className={styles.reviews__text}>{review.text}</p>
+              <p className={styles.reviews__author}>{review.author}</p>
             </div>
           </div>
         ))}
       </div>
       
-      <div className="slide-indicators" ref={indicatorsRef}>
+      <div className={styles.slide__indicators} ref={indicatorsRef}>
         {reviews.map((_, index) => (
           <button 
             key={index}

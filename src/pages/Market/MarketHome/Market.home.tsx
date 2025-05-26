@@ -1,8 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./Market.home.module.css";
+import { useResponsiveStyles } from '../../../utils/useResponsiveStyles';
 
+import mobileStyles from "./MarketHome.mobile.module.css";
+import desktopStyles from "./MarketHome.desktop.module.css";
 const MarketHome: React.FC = () => {
+  const styles = useResponsiveStyles(mobileStyles, desktopStyles);
+
   return (
     <main className={styles.market__home}>
       <h1 className={styles.initial__title}>PRODUCTOS</h1>

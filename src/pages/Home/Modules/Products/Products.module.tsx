@@ -1,28 +1,35 @@
-import React from 'react';
-import './Products.styles.css';
-import Boton from '../../../../components/ui/Button';
+import React from "react";
+import { useResponsiveStyles } from "../../../../utils/useResponsiveStyles";
+
+import mobileStyles from "./Products.mobile.module.css";
+import desktopStyles from "./Products.desktop.module.css";
+import Boton from "../../../../components/ui/Button";
 
 const Products: React.FC = () => {
+  const styles = useResponsiveStyles(mobileStyles, desktopStyles);
 
   return (
-<section className="products">
-    <h1>PRODUCTOS</h1>
+    <section className={styles.products}>
+      <h1>PRODUCTOS</h1>
 
-    <div className="container">
-        <div className="product__card">
-            <div className="product__info">
-                <h3>Cuidamos de ti con tecnología confiable y accesible.</h3>
+      <div className={styles.container}>
+        <div className={styles.product__card}>
+          <div className={styles.product__info}>
+            <h3>Cuidamos de ti con tecnología confiable y accesible.</h3>
 
-                <Boton className="btn" color="orange" texto="IR A LA TIENDA" />
-            </div>
+            <Boton
+              className={styles.btn}
+              color="orange"
+              texto="IR A LA TIENDA"
+            />
+          </div>
 
-            <div className="product__img">
-                <img src="/Home/product.webp" alt="background" />
-            </div>
+          <div className={styles.product__img}>
+            <img src="/Home/product.webp" alt="background" />
+          </div>
         </div>
-    </div>
-
-</section>
+      </div>
+    </section>
   );
 };
 

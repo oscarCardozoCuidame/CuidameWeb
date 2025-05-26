@@ -1,6 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./Market.pets.module.css";
+import { useResponsiveStyles } from '../../../utils/useResponsiveStyles';
+
+import mobileStyles from "./MarketPets.mobile.module.css";
+import desktopStyles from "./MarketPets.desktop.module.css";
 
 interface SectionConfig {
   id: string;
@@ -29,7 +32,8 @@ interface ProductPrices {
 }
 
 const MarketPets: React.FC = () => {
-  // Estado para las cantidades de cada sección
+  const styles = useResponsiveStyles(mobileStyles, desktopStyles);
+
   const [quantities, setQuantities] = useState({
     collar: 1,
     tags: 1,
@@ -82,11 +86,7 @@ const MarketPets: React.FC = () => {
       if (newValue < section.min) newValue = section.min;
       if (newValue > section.max) newValue = section.max;
 
-      // Guardar en localStorage para persistencia
       localStorage.setItem(`quantity_${sectionId}`, newValue.toString());
-
-      // Opcional: Registrar cambios en consola (similar al evento personalizado original)
-      console.log(`Cantidad actualizada en ${sectionId}: ${newValue}`);
 
       return {
         ...prev,

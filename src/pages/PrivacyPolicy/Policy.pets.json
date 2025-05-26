@@ -1,0 +1,110 @@
+{
+  "header": {
+    "title": "CUIDAME.PETS SAS",
+    "subtitle": "Política de Tratamiento de Datos Personales",
+    "effectiveDate": "Abril de 2022",
+    "lastModified": "Abril de 2024"
+  },
+  "sections": [
+    {
+      "id": "presentation",
+      "title": "Presentación",
+      "icon": "FileText",
+      "content": "Con el objetivo de dar cumplimiento a la legislación vigente en materia de protección de datos, en especial la Ley 1581 de 2012 (y demás normas que la modifiquen, adicionen, complementen o desarrollen) y al Decreto 1377 de 2013, a continuación lo ponemos al tanto de los aspectos relevantes en relación con la recolección, uso y transferencia de datos personales que el software CUIDAME.PETS realiza de sus datos personales.\n\nEn esta política de tratamiento de datos personales encontramos los lineamientos corporativos y de ley bajo los cuales CUIDAME.PETS realiza el tratamiento de sus datos, la finalidad, sus derechos como titular, así como los procedimientos internos y externos para el ejercicio de tales derechos.",
+      "additionalInfo": "Conforme a lo previsto en el artículo 15 de la Constitución Política de Colombia, tenemos una clara política de privacidad y protección de sus datos personales."
+    },
+    {
+      "id": "definitions",
+      "title": "Definiciones",
+      "icon": "Shield",
+      "definitions": [
+        {
+          "term": "Dato personal",
+          "definition": "Cualquier información vinculada o que pueda asociarse a una o varias personas naturales determinadas o determinables"
+        },
+        {
+          "term": "Datos sensibles",
+          "definition": "Aquellos datos que afectan la intimidad del Titular o cuyo uso indebido puede generar su discriminación"
+        },
+        {
+          "term": "Encargado del Tratamiento",
+          "definition": "Persona natural o jurídica, pública o privada, que por sí misma o en asocio con otros, realice el Tratamiento de datos personales por cuenta CUIDAME.PETS como Responsable de los datos"
+        },
+        {
+          "term": "Responsable del Tratamiento",
+          "definition": "Persona natural o jurídica, pública o privada, que por sí misma o en asocio con otros, decida sobre la base de datos y/o el Tratamiento de los datos"
+        },
+        {
+          "term": "Titular",
+          "definition": "Persona natural cuyos datos personales sean objeto de Tratamiento, sea cliente, proveedor, empleado, o cualquier tercero que suministre datos personales a CUIDAME.PETS"
+        }
+      ],
+      "note": "Para términos no incluidos en esta lista, consulte la Ley 1581 de 2012 y el Decreto 1377 de 2013."
+    },
+    {
+      "id": "usage",
+      "title": "Uso y finalidad del Tratamiento",
+      "icon": "User",
+      "description": "CUIDAME.PETS reconoce que el Titular de los datos personales tiene derecho a contar con una expectativa razonable de su privacidad. Los datos personales son utilizados para:",
+      "purposes": [
+        "Ejecución del contrato suscrito con CUIDAME.PETS",
+        "Cobro y recaudo de obligaciones contractuales",
+        "Pago de obligaciones contractuales",
+        "Envío de información a entidades gubernamentales o judiciales por solicitud expresa",
+        "Soporte en procesos de auditoría externa/interna",
+        "Envío/Recepción de mensajes informativos a los Clientes",
+        "Registro de información de Clientes, empleados y proveedores",
+        "Contacto para envío de información relacionada con la relación contractual",
+        "Cumplimiento de deberes como Responsable de la información",
+        "Propósitos de seguridad o prevención de fraude",
+        "Servicios tecnológicos, emergencia y atención médica",
+        "Gestiones de recaudo y cobro de cartera morosa"
+      ],
+      "sensitiveDataNote": {
+        "title": "Importante sobre datos sensibles:",
+        "text": "Ninguno de los servicios será condicionado al suministro de datos sensibles. No está obligado a autorizar su tratamiento, pero esto podría limitar algunos servicios."
+      }
+    },
+    {
+      "id": "rights",
+      "title": "Derechos del Titular",
+      "icon": "Shield",
+      "description": "De conformidad con el artículo 8 de la Ley 1581 de 2012, sus derechos como titular son:",
+      "rights": [
+        "Conocer, actualizar y rectificar sus datos personales",
+        "Solicitar prueba de la autorización otorgada",
+        "Ser informado sobre el uso dado a sus datos personales",
+        "Presentar quejas ante la Superintendencia de Industria y Comercio",
+        "Revocar la autorización y/o solicitar la supresión del dato",
+        "Acceder en forma gratuita a sus datos personales"
+      ]
+    },
+    {
+      "id": "procedure",
+      "title": "Procedimiento para el ejercicio de sus derechos",
+      "icon": "Mail",
+      "description": "Para ejercer sus derechos o realizar consultas, puede contactarnos a través de:",
+      "contact": {
+        "email": "contacto.eli@cuidame.tech",
+        "phone": "+301 4497460"
+      },
+      "timelines": [
+        {
+          "type": "Consultas",
+          "time": "Máximo 10 días hábiles para respuesta (ampliable por 5 días más)",
+          "style": "queries"
+        },
+        {
+          "type": "Reclamos y Actualizaciones",
+          "time": "Máximo 15 días hábiles para respuesta",
+          "style": "claims"
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "title": "Modificación de esta política",
+    "text": "Esta política puede ser modificada en cualquier momento. Le recomendamos revisar periódicamente nuestra página web para estar al tanto de los cambios.",
+    "validity": "Vigencia de la base de datos: El tiempo razonable y necesario para cumplir con las finalidades del tratamiento de la información."
+  }
+}
