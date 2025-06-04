@@ -1,7 +1,6 @@
 .solutions_card {
-  height: 100vh;
   width: 100vw;
-  padding: 2.5rem 0;
+  margin: -2.5rem 0 2.5rem;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -10,45 +9,52 @@
 .card_container {
   background-color: var(--color-white);
   height: 90%;
-  width: 90%;
-  margin: 0 5%;
+  width: 100%;
   box-sizing: content-box;
   display: flex;
+  flex-direction: column-reverse;
   border-radius: 3rem;
 }
 
 .left_side {
   color: var(--color-purple-2);
-  width: 50%;
-  padding: 0rem 4rem;
+  width: 100%;
+  padding: 2rem 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  font-size: 1.25vw;
+  position: relative;
 }
 
 .left_side .text_title {
+  color: var(--color-white);
+  width: 45%;
   display: flex;
-  gap: 15px;
+  position: absolute;
+  top: -23%;
+  font-size: 1.5rem;
   font-weight: bold;
   line-height: 1.5;
 }
 
 .left_side .text_description {
-  margin-top: 15px;
   display: flex;
   flex-direction: column;
 }
 
 .text_description p {
+  color: var(--color-purple-1);
   text-align: start;
   white-space: pre-line;
+  font-size: 1rem;
+  font-weight: 500;
   line-height: 1.25;
 }
 
 .right_side {
-  width: 50%;
+  width: 100%;
+  margin: 0 5% 0 0;
   display: flex;
   justify-content: flex-end;
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { useResponsiveStyles } from "../../../../utils/useResponsiveStyles";
 
 import mobileStyles from "./Products.mobile.module.css";
@@ -17,11 +18,13 @@ const Products: React.FC = () => {
           <div className={styles.product__info}>
             <h3>Cuidamos de ti con tecnología confiable y accesible.</h3>
 
-            <Boton
-              className={styles.btn}
-              color="orange"
-              texto="IR A LA TIENDA"
-            />
+            <NavLink to="/market">
+              <Boton
+                className={styles.btn}
+                color="orange"
+                texto="IR A LA TIENDA"
+              />
+            </NavLink>
           </div>
 
           <div className={styles.product__img}>

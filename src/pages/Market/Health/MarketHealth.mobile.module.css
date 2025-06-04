@@ -167,7 +167,10 @@
   border-radius: 2rem;
 }
 
-
+.active {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 5px rgb(0 0 0 / 50%) !important;
+}
 
 .bracelet__info h2,
 .bracelet__info h3 {

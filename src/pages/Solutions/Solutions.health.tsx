@@ -34,7 +34,8 @@ const health: Record<string, any> = {
     imageSrc: "/Solutions/Health/start-with-us-img.webp",
   },
   presentationData: {
-    imageSrc: "/Solutions/Health/presentation.svg",
+    imageSrcDesktop: "/Solutions/Health/presentation.svg",
+    imageSrcMobile: "/Solutions/Health/presentationMobile.svg",
   },
   questionsData: {
     title: "¿Tienes preguntas?",
@@ -68,7 +69,8 @@ const pets: Record<string, any> = {
     tryPlatformText: "Quiero probar la plataforma",
   },
   presentationData: {
-    imageSrc: "/Solutions/Pets/presentation.svg",
+    imageSrcDesktop: "/Solutions/Pets/presentation.svg",
+    imageSrcMobile: "/Solutions/Pets/presentationMobile.svg",
   },
   questionsData: {
     title: "¿Tienes preguntas?",

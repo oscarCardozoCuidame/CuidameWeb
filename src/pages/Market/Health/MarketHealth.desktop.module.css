@@ -226,20 +226,20 @@
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
-.bracelet__kids__colors .color__btn {
+.color__btn__kids {
   background-size: 30rem !important;
   background-position-x: -12rem !important;
   background-position-y: center !important;
-  width: 8rem;
-  height: 3.5rem;
+  width: 8rem !important;
+  height: 3.5rem !important;
   margin: 8px 15px;
   border-radius: 1rem;
 }
 
-.color__btn:hover,
-.color__btn.active {
+.color__btn:hover, 
+.active {
   transform: scale(1.1);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 5px rgb(0 0 0 / 50%) !important;
 }
 
 .bracelet__price {

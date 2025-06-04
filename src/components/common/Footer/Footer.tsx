@@ -43,8 +43,8 @@ const Footer: React.FC<HeaderProps> = ({ className }) => {
               >
                 <img
                   style={{ width: "0.9rem" }}
-                  src="/SocialMedia/facebook.svg"
-                  alt="Facebook"
+                  src="/SocialMedia/instagram.svg"
+                  alt="Instagram"
                 />
               </a>
             </div>

@@ -3,7 +3,6 @@ import { useResponsiveStyles } from '../../../../utils/useResponsiveStyles';
 
 import mobileStyles  from "./Initial.mobile.module.css";
 import desktopStyles  from "./Initial.desktop.module.css";
-import Boton from "../../../../components/ui/Button";
 
 const Initial: React.FC = () => {
   const styles = useResponsiveStyles(mobileStyles, desktopStyles);

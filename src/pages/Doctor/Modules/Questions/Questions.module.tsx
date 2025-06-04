@@ -2,8 +2,8 @@ import Boton from "../../../../components/ui/Button";
 import { openWhatsAppChat } from "../../../../utils/whatsapp.utils";
 import { useResponsiveStyles } from "../../../../utils/useResponsiveStyles";
 
-import mobileStyles from "./QuestionsDoc.mobile.module.css";
-import desktopStyles from "./QuestionsDoc.desktop.module.css";
+import mobileStyles from "./Questions.mobile.module.css";
+import desktopStyles from "./Questions.desktop.module.css";
 
 interface QuestionsProps {
   title: string;

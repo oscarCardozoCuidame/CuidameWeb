@@ -53,7 +53,7 @@ const MarketHealth: React.FC = () => {
     tags: 1,
     kids: 1,
   });
-  // Estado para los colores seleccionados
+  // Estado para los colores seleccionados - valores por defecto iniciales
   const [selectedColors, setSelectedColors] = useState<SelectedColors>({
     bracelet: "Amarillo",
     plate: "Placa Menta",
@@ -92,34 +92,29 @@ const MarketHealth: React.FC = () => {
     containerClassName: string
   ) => {
     const button = event.currentTarget;
-    // Necesitamos adaptar esto para CSS Modules
     const parentContainer = button.closest(`[data-container="${containerClassName}"]`);
 
     if (parentContainer) {
       // Eliminar active de todos los botones en el contenedor
       parentContainer.querySelectorAll(`.${styles.color__btn}`).forEach((btn) => {
-        btn.classList.remove("active");
+        btn.classList.remove(styles.active); 
       });
 
       // Añadir active al botón seleccionado
-      button.classList.add("active");
+      button.classList.add(styles.active);
       
       // Guardar el color seleccionado
       const colorName = button.getAttribute('aria-label') || "";
       
       // Actualizar el estado según el contenedor
       if (containerClassName === "bracelet__colors") {
-        setSelectedColors(prev => ({ ...prev, bracelet: colorName }));
-        localStorage.setItem("selectedBraceletColor", colorName);
+        setSelectedColors(prev => ({ ...prev, bracelet: colorName, bicolor: "" })); // Limpiar bicolor cuando se selecciona unicolor
       } else if (containerClassName === "bicolor") {
-        setSelectedColors(prev => ({ ...prev, bicolor: colorName }));
-        localStorage.setItem("selectedBicolorBracelet", colorName);
+        setSelectedColors(prev => ({ ...prev, bicolor: colorName, bracelet: "" })); // Limpiar unicolor cuando se selecciona bicolor
       } else if (containerClassName === "plate__colors") {
         setSelectedColors(prev => ({ ...prev, plate: colorName }));
-        localStorage.setItem("selectedPlateColor", colorName);
       } else if (containerClassName === "bracelet__kids__colors") {
         setSelectedColors(prev => ({ ...prev, kids: colorName }));
-        localStorage.setItem("selectedKidsColor", colorName);
       }
 
       // Actualizar imagen si estamos en bracelet__colors o bicolor
@@ -145,7 +140,6 @@ const MarketHealth: React.FC = () => {
           setCurrentBraceletImage(
             colorToImage[colorKey as keyof typeof colorToImage]
           );
-          localStorage.setItem("currentBraceletImage", colorToImage[colorKey as keyof typeof colorToImage]);
         }
       }
     }
@@ -186,9 +180,6 @@ const MarketHealth: React.FC = () => {
       if (newValue < section.min) newValue = section.min;
       if (newValue > section.max) newValue = section.max;
 
-      // Guardar en localStorage para persistencia
-      localStorage.setItem(`quantity_${sectionId}`, newValue.toString());
-
       return {
         ...prev,
         [sectionKey]: newValue,
@@ -196,98 +187,47 @@ const MarketHealth: React.FC = () => {
     });
   };
 
-  // Cargar valores guardados del localStorage al iniciar
+  // Aplicar clases active a los elementos por defecto al cargar el componente
   useEffect(() => {
-    const sections = ["bracelets", "tags", "kids"];
-
-    sections.forEach((section) => {
-      const savedValue = localStorage.getItem(`quantity_${section}`);
-      if (savedValue) {
-        setQuantities((prev) => ({
-          ...prev,
-          [section]: parseInt(savedValue, 10),
-        }));
-      }
-    });
-    
-    // Cargar colores seleccionados guardados
-    const savedBraceletColor = localStorage.getItem("selectedBraceletColor");
-    const savedBicolorBracelet = localStorage.getItem("selectedBicolorBracelet");
-    const savedPlateColor = localStorage.getItem("selectedPlateColor");
-    const savedKidsColor = localStorage.getItem("selectedKidsColor");
-    const savedBraceletImage = localStorage.getItem("currentBraceletImage");
-    
-    // Actualizar estado con colores guardados
-    setSelectedColors(prev => ({
-      bracelet: savedBraceletColor || prev.bracelet,
-      bicolor: savedBicolorBracelet || prev.bicolor,
-      plate: savedPlateColor || prev.plate,
-      kids: savedKidsColor || prev.kids
-    }));
-    
-    // Restaurar imagen del brazalete guardada
-    if (savedBraceletImage) {
-      setCurrentBraceletImage(savedBraceletImage);
-    }
-    
-    // Aplicar "active" class a los botones correspondientes (después de que el DOM esté listo)
+    // Pequeño retraso para asegurar que el DOM esté listo
     setTimeout(() => {
-      // Para brazaletes unicolor
-      if (savedBraceletColor) {
-        const braceletContainer = document.querySelector('[data-container="bracelet__colors"]');
-        if (braceletContainer) {
-          braceletContainer.querySelectorAll(`.${styles.color__btn}`).forEach(btn => {
-            if (btn.getAttribute('aria-label') === savedBraceletColor) {
-              btn.classList.add('active');
-            } else {
-              btn.classList.remove('active');
-            }
-          });
+      // Activar el primer color de brazaletes (Amarillo) por defecto
+      const braceletContainer = document.querySelector('[data-container="bracelet__colors"]');
+      if (braceletContainer) {
+        const firstButton = braceletContainer.querySelector(`.${styles.color__btn}[aria-label="Amarillo"]`);
+        if (firstButton) {
+          firstButton.classList.add('active');
         }
       }
       
-      // Para brazaletes bicolor
-      if (savedBicolorBracelet) {
-        const bicolorContainer = document.querySelector('[data-container="bicolor"]');
-        if (bicolorContainer) {
-          bicolorContainer.querySelectorAll(`.${styles.color__btn}`).forEach(btn => {
-            if (btn.getAttribute('aria-label') === savedBicolorBracelet) {
-              btn.classList.add('active');
-            } else {
-              btn.classList.remove('active');
-            }
-          });
+      // Activar el primer color de placa (Placa Menta) por defecto en la primera sección
+      const plateContainer = document.querySelector('[data-container="plate__colors"]');
+      if (plateContainer) {
+        const firstButton = plateContainer.querySelector(`.${styles.color__btn}[aria-label="Placa Menta"]`);
+        if (firstButton) {
+          firstButton.classList.add('active');
         }
       }
       
-      // Para color de placas
-      if (savedPlateColor) {
-        const plateContainers = document.querySelectorAll('[data-container="plate__colors"]');
-        plateContainers.forEach(container => {
-          container.querySelectorAll(`.${styles.color__btn}`).forEach(btn => {
-            if (btn.getAttribute('aria-label') === savedPlateColor) {
-              btn.classList.add('active');
-            } else {
-              btn.classList.remove('active');
-            }
-          });
-        });
-      }
-      
-      // Para colores de niños
-      if (savedKidsColor) {
-        const kidsContainer = document.querySelector('[data-container="bracelet__kids__colors"]');
-        if (kidsContainer) {
-          kidsContainer.querySelectorAll(`.${styles.color__btn}`).forEach(btn => {
-            if (btn.getAttribute('aria-label') === savedKidsColor) {
-              btn.classList.add('active');
-            } else {
-              btn.classList.remove('active');
-            }
-          });
+      // Activar el primer color de niños (Rojo) por defecto
+      const kidsContainer = document.querySelector('[data-container="bracelet__kids__colors"]');
+      if (kidsContainer) {
+        const firstButton = kidsContainer.querySelector(`.${styles.color__btn}[aria-label="Rojo"]`);
+        if (firstButton) {
+          firstButton.classList.add('active');
         }
       }
-    }, 100); // Pequeño retraso para asegurar que el DOM esté listo
+      
+      // Para la sección de tags, activar el primer color (Rojo) por defecto
+      const tagPlateContainers = document.querySelectorAll('[data-container="plate__colors"]');
+      if (tagPlateContainers.length > 1) {
+        const tagContainer = tagPlateContainers[1]; // Segundo contenedor es para tags
+        const firstButton = tagContainer.querySelector(`.${styles.color__btn}[aria-label="Rojo"]`);
+        if (firstButton) {
+          firstButton.classList.add('active');
+        }
+      }
+    }, 100);
   }, []);
 
   return (
@@ -352,7 +292,7 @@ const MarketHealth: React.FC = () => {
               data-container="bracelet__colors"
             >
               <button
-                className={`${styles.color__btn} ${styles.yellow} active`}
+                className={`${styles.color__btn} ${styles.yellow}`}
                 aria-label="Amarillo"
                 onClick={(e) => handleColorButtonClick(e, "bracelet__colors")}
               ></button>
@@ -437,7 +377,7 @@ const MarketHealth: React.FC = () => {
               data-container="plate__colors"
             >
               <button
-                className={`${styles.color__btn} ${styles.grey} active`}
+                className={`${styles.color__btn} ${styles.grey}`}
                 aria-label="Placa Menta"
                 onClick={(e) => handleColorButtonClick(e, "plate__colors")}
               ></button>
@@ -516,7 +456,7 @@ const MarketHealth: React.FC = () => {
               data-container="plate__colors"
             >
               <button
-                className={`${styles.color__btn} ${styles.red} active`}
+                className={`${styles.color__btn} ${styles.red}`}
                 aria-label="Rojo"
                 onClick={(e) => handleColorButtonClick(e, "plate__colors")}
               ></button>
@@ -605,7 +545,7 @@ const MarketHealth: React.FC = () => {
                 style={{
                   background: "url(/Market/Health/Kids/red-color.webp)",
                 }}
-                className={`${styles.color__btn} ${styles.red} active`}
+                className={`${styles.color__btn} ${styles.color__btn__kids} ${styles.red}`}
                 aria-label="Rojo"
                 onClick={(e) =>
                   handleColorButtonClick(e, "bracelet__kids__colors")
@@ -615,7 +555,7 @@ const MarketHealth: React.FC = () => {
                 style={{
                   background: "url(/Market/Health/Kids/blue-color.webp)",
                 }}
-                className={`${styles.color__btn} ${styles.blue}`}
+                className={`${styles.color__btn} ${styles.color__btn__kids} ${styles.blue}`}
                 aria-label="Azul"
                 onClick={(e) =>
                   handleColorButtonClick(e, "bracelet__kids__colors")
@@ -626,7 +566,7 @@ const MarketHealth: React.FC = () => {
                 style={{
                   background: "url(/Market/Health/Kids/pink-color.webp)",
                 }}
-                className={`${styles.color__btn} ${styles.pink}`}
+                className={`${styles.color__btn} ${styles.color__btn__kids} ${styles.pink}`}
                 aria-label="Rosa"
                 onClick={(e) =>
                   handleColorButtonClick(e, "bracelet__kids__colors")

@@ -1,4 +1,4 @@
-import { useResponsiveStyles } from '../../../../utils/useResponsiveStyles';
+import { useResponsiveStyles } from "../../../../utils/useResponsiveStyles";
 
 import mobileStyles from "./Hero.mobile.module.css";
 import desktopStyles from "./Hero.desktop.module.css";
@@ -10,11 +10,11 @@ interface HeroProps {
   imageSrc: string;
 }
 
-const Hero: React.FC<HeroProps> = ({ 
-  title, 
-  description, 
-  buttonText, 
-  imageSrc 
+const Hero: React.FC<HeroProps> = ({
+  title,
+  description,
+  buttonText,
+  imageSrc,
 }) => {
   const styles = useResponsiveStyles(mobileStyles, desktopStyles);
 
@@ -23,14 +23,14 @@ const Hero: React.FC<HeroProps> = ({
       <div className={styles.card_container}>
         <div className={styles.left_side}>
           <div className={styles.text_title}>
-            <img
-              src="/logo/CuidamePurple.svg"
-              alt="solutions logo"
-              className={styles.solutions_logo}
-            />
             {window.innerWidth > 1020 && (
-              <p className={styles.solutions_title}>{title}</p>
+              <img
+                src="/logo/CuidamePurple.svg"
+                alt="solutions logo"
+                className={styles.solutions_logo}
+              />
             )}
+            <p className={styles.solutions_title}>{title}</p>
           </div>
           <div className={styles.text_description}>
             <p>{description}</p>
