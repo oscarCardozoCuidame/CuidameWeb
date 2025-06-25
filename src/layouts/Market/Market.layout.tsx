@@ -10,20 +10,36 @@ import Footer from '../../components/common/Footer/Footer';
 import MarketHome from '../../pages/Market/MarketHome/Market.home';
 import MarketHealth from '../../pages/Market/Health/Market.health';
 import MarketPets from '../../pages/Market/Pets/Market.pets';
+import Checkout from '../../pages/Market/Checkout/Checkout';
 
 const MarketLayout: React.FC = () => {
   return (
     <div className={styles.market_layout} >
       <Header className={styles.header} />
       
-      <Routes>
-        {/* Ruta principal del mercado */}
-        <Route path="/" element={<MarketHome />} />
-        
-        {/* Rutas para secciones específicas */}
-        <Route path="/health" element={<MarketHealth />} />
-        <Route path="/pets" element={<MarketPets />} />
-      </Routes>
+      <main>
+        <Routes>
+          {/* Ruta principal del mercado */}
+          <Route path="/" element={<MarketHome />} />
+          
+          {/* Rutas para secciones específicas */}
+          <Route path="/health" element={<MarketHealth />} />
+          <Route path="/pets" element={<MarketPets />} />
+          <Route path="/checkout" element={
+            <Checkout
+              onPayment={async (paymentData) => {
+                // Manejar el pago
+                console.log('Procesando pago:', paymentData);
+              }}
+              onCartUpdate={() => {
+                // Opcional: callback cuando el carrito cambia
+                console.log('Carrito actualizado');
+              }}
+              isLoading={false}
+            />
+          } />
+        </Routes>
+      </main>
       
       <Footer className={styles.footer} />
     </div>

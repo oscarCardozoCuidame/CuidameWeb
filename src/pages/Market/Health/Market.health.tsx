@@ -1,33 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useResponsiveStyles } from '../../../utils/useResponsiveStyles';
+import { addToCart, CartItem } from '../../../utils/cartStore';
 
 import mobileStyles from "./MarketHealth.mobile.module.css";
 import desktopStyles from "./MarketHealth.desktop.module.css";
-
-// Utilidad para enviar mensajes de WhatsApp
-const sendWhatsAppMessage = (
-  phoneNumber: string, 
-  productInfo: { 
-    name: string, 
-    color: string, 
-    plateColor?: string, 
-    quantity: number, 
-    price: string 
-  }
-) => {
-  // Formatear el mensaje
-  const message = `Hola, estoy interesado en adquirir el siguiente producto:\n\n*${productInfo.name}*\nColor: ${productInfo.color}${productInfo.plateColor ? `\nColor de placa: ${productInfo.plateColor}` : ""}\nCantidad: ${productInfo.quantity}\nPrecio: ${productInfo.price}\n\n¿Podrían darme más información?`;
-  
-  // Codificar el mensaje para URL
-  const encodedMessage = encodeURIComponent(message);
-  
-  // Crear el enlace de WhatsApp
-  const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-  
-  // Abrir en una nueva pestaña
-  window.open(whatsappLink, '_blank');
-};
 
 interface SectionConfig {
   id: string;
@@ -84,6 +61,59 @@ const MarketHealth: React.FC = () => {
     "black-yellow": "/Market/Health/Bracelet/yellow-line-bracelet.webp",
     "black-lilac": "/Market/Health/Bracelet/lilac-line-bracelet.webp",
     "black-red": "/Market/Health/Bracelet/red-line-bracelet.webp",
+  };
+
+  // Función para agregar producto al carrito
+  const addProductToCart = (productType: 'bracelet' | 'tag' | 'kids') => {
+    let productData: Omit<CartItem, 'addedAt'>;
+    
+    switch (productType) {
+      case 'bracelet':
+        productData = {
+          id: 'health-bracelet',
+          category: 'health',
+          name: 'Brazalete en silicona',
+          price: 65000,
+          quantity: quantities.bracelets,
+          color: selectedColors.bicolor || selectedColors.bracelet,
+          plateColor: selectedColors.plate,
+          image: currentBraceletImage
+        };
+        break;
+      
+      case 'tag':
+        productData = {
+          id: 'health-tag',
+          category: 'health',
+          name: 'Tag en silicona',
+          price: 45000,
+          quantity: quantities.tags,
+          color: 'Tag',
+          plateColor: selectedColors.plate,
+          image: '/Market/Health/qr-tag.webp'
+        };
+        break;
+      
+      case 'kids':
+        productData = {
+          id: 'health-kids-bracelet',
+          category: 'health',
+          name: 'Brazalete en silicona para niños',
+          price: 55000,
+          quantity: quantities.kids,
+          color: selectedColors.kids || 'Rojo',
+          image: '/Market/Health/qr-kids.webp'
+        };
+        break;
+      
+      default:
+        return;
+    }
+    
+    addToCart(productData);
+    
+    // Opcional: Mostrar algún feedback visual
+    alert(`¡${productData.name} agregado al carrito!`);
   };
 
   // Función para actualizar la imagen según el color seleccionado
@@ -228,7 +258,7 @@ const MarketHealth: React.FC = () => {
         }
       }
     }, 100);
-  }, []);
+  }, [styles]);
 
   return (
     <main className={styles.market__health}>
@@ -396,20 +426,9 @@ const MarketHealth: React.FC = () => {
           <div className={styles.bracelet__actions}>
             <button 
               className={styles.add__cart}
-              onClick={() => 
-                sendWhatsAppMessage(
-                  "+573007306645",
-                  {
-                    name: "Brazalete en silicona",
-                    color: selectedColors.bicolor || selectedColors.bracelet,
-                    plateColor: selectedColors.plate,
-                    quantity: quantities.bracelets,
-                    price: "$65.000 cop"
-                  }
-                )
-              }
+              onClick={() => addProductToCart('bracelet')}
             >
-              Comprar
+              Agregar al carrito
             </button>
             <div className={styles.quantity__selector}>
               <button
@@ -485,20 +504,9 @@ const MarketHealth: React.FC = () => {
           <div className={styles.bracelet__actions}>
             <button 
               className={styles.add__cart}
-              onClick={() => 
-                sendWhatsAppMessage(
-                  "+573007306645",
-                  {
-                    name: "Tag en silicona",
-                    color: "Tag",
-                    plateColor: selectedColors.plate,
-                    quantity: quantities.tags,
-                    price: "$45.000 cop"
-                  }
-                )
-              }
+              onClick={() => addProductToCart('tag')}
             >
-              Comprar
+              Agregar al carrito
             </button>
             <div className={styles.quantity__selector}>
               <button
@@ -582,19 +590,9 @@ const MarketHealth: React.FC = () => {
           <div className={styles.bracelet__actions}>
             <button 
               className={styles.add__cart}
-              onClick={() => 
-                sendWhatsAppMessage(
-                  "+573007306645",
-                  {
-                    name: "Brazalete en silicona para niños",
-                    color: selectedColors.kids || "",
-                    quantity: quantities.kids,
-                    price: "$55.000 cop"
-                  }
-                )
-              }
+              onClick={() => addProductToCart('kids')}
             >
-              Comprar
+              Agregar al carrito
             </button>
             <div className={styles.quantity__selector}>
               <button

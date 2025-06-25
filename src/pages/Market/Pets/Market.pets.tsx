@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useResponsiveStyles } from '../../../utils/useResponsiveStyles';
+import { addToCart, getCart, getCartAsJSON, getCartForWhatsApp, CartItem } from '../../../utils/cartStore';
 
 import mobileStyles from "./MarketPets.mobile.module.css";
 import desktopStyles from "./MarketPets.desktop.module.css";
@@ -86,8 +87,6 @@ const MarketPets: React.FC = () => {
       if (newValue < section.min) newValue = section.min;
       if (newValue > section.max) newValue = section.max;
 
-      localStorage.setItem(`quantity_${sectionId}`, newValue.toString());
-
       return {
         ...prev,
         [sectionKey]: newValue,
@@ -97,16 +96,14 @@ const MarketPets: React.FC = () => {
 
   // Función para actualizar talla seleccionada
   const updateSelectedSize = (productId: keyof SizeSelections, size: string) => {
-    setSelectedSizes((prev) => {
-      const newSizes = { ...prev, [productId]: size };
-      // Guardar en localStorage
-      localStorage.setItem(`size_${productId}`, size);
-      return newSizes;
-    });
+    setSelectedSizes((prev) => ({
+      ...prev,
+      [productId]: size,
+    }));
   };
 
-  // Función para enviar mensaje de WhatsApp
-  const sendWhatsAppMessage = (productId: string) => {
+  // Función para agregar producto al carrito
+  const addProductToCart = (productId: string) => {
     const productNames: { [key: string]: string } = {
       collar: "Collar letras 3D",
       tags: "Tag en Silicona",
@@ -114,82 +111,89 @@ const MarketPets: React.FC = () => {
       shirtfront: "Pechera 3D",
     };
 
-    let message = `Hola, estoy interesado en el producto: ${productNames[productId]}`;
-    
-    // Agregar información de talla si aplica
-    if (productId === "collar" || productId === "shirtfront") {
-      const size = selectedSizes[productId as keyof SizeSelections];
-      message += `, talla: ${size}`;
-      
-      // Agregar precio según la talla
-      const price = productId === "collar" 
-        ? productPrices.collar[size as keyof typeof productPrices.collar] 
-        : productPrices.shirtfront[size as keyof typeof productPrices.shirtfront];
-      
-      message += `, precio: $${price.toLocaleString('es-CO')} COP`;
-    } else {
-      // Productos sin talla
-      const price = productId === "tags" ? productPrices.tags : productPrices.medals;
-      message += `, precio: $${price.toLocaleString('es-CO')} COP`;
-    }
-    
-    // Agregar cantidad
-    message += `, cantidad: ${quantities[productId as keyof typeof quantities]}`;
-    
-    // Calcular precio total
-    let totalPrice = 0;
+    const productImages: { [key: string]: string } = {
+      collar: "/Market/Pets/collar.webp",
+      tags: "/Market/Pets/tags.webp",
+      medals: "/Market/Pets/medals.webp",
+      shirtfront: "/Market/Pets/shirtfront.webp",
+    };
+
+    let price = 0;
+    let size: string | undefined;
+
+    // Calcular precio y talla según el producto
     if (productId === "collar") {
-      totalPrice = productPrices.collar[selectedSizes.collar as keyof typeof productPrices.collar] * quantities.collar;
+      size = selectedSizes.collar;
+      price = productPrices.collar[size as keyof typeof productPrices.collar];
     } else if (productId === "shirtfront") {
-      totalPrice = productPrices.shirtfront[selectedSizes.shirtfront as keyof typeof productPrices.shirtfront] * quantities.shirtfront;
+      size = selectedSizes.shirtfront;
+      price = productPrices.shirtfront[size as keyof typeof productPrices.shirtfront];
     } else if (productId === "tags") {
-      totalPrice = productPrices.tags * quantities.tags;
+      price = productPrices.tags;
     } else if (productId === "medals") {
-      totalPrice = productPrices.medals * quantities.medals;
+      price = productPrices.medals;
     }
+
+    const cartItem: Omit<CartItem, 'addedAt'> = {
+      id: productId,
+      category: 'pets',
+      name: productNames[productId],
+      price: price,
+      quantity: quantities[productId as keyof typeof quantities],
+      size: size,
+      image: productImages[productId],
+    };
+
+    addToCart(cartItem);
+
+    // Mostrar confirmación
+    alert(`✅ ${productNames[productId]} agregado al carrito!`);
     
-    message += `. Total: $${totalPrice.toLocaleString('es-CO')} COP`;
-    
-    // Agregar texto adicional
-    message += ". ¿Podrían brindarme más información?";
-    
-    // Codificar el mensaje para URL
-    const encodedMessage = encodeURIComponent(message);
-    
-    // Número de WhatsApp (reemplazar con el número correcto)
-    const phoneNumber = "3195752651"; // Reemplaza con el número real
-    
-    // Crear URL de WhatsApp
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-    // Abrir en nueva pestaña
-    window.open(whatsappUrl, "_blank");
+    // Opcional: Mostrar el carrito en consola
+    console.log('Carrito actualizado:', getCartAsJSON());
   };
 
-  // Cargar valores guardados del localStorage al iniciar
-  useEffect(() => {
-    // Cargar cantidades
-    const sections = ["collar", "tags", "medals", "shirtfront"];
-    sections.forEach((section) => {
-      const savedValue = localStorage.getItem(`quantity_${section}`);
-      if (savedValue) {
-        setQuantities((prev) => ({
-          ...prev,
-          [section]: parseInt(savedValue, 10),
-        }));
-      }
-    });
+  // Función para ver el carrito completo
+  const viewCart = () => {
+    const cart = getCart();
+    if (cart.items.length === 0) {
+      alert("🛒 El carrito está vacío");
+      return;
+    }
+
+    const cartSummary = `
+🛒 CARRITO DE COMPRAS
+
+${cart.items.map((item, index) => 
+  `${index + 1}. ${item.name}
+   ${item.size ? `Talla: ${item.size}` : ''}
+   Cantidad: ${item.quantity}
+   Precio: $${item.price.toLocaleString('es-CO')} COP
+   Subtotal: $${(item.price * item.quantity).toLocaleString('es-CO')} COP
+`).join('\n')}
+
+📊 TOTAL: ${cart.totalItems} productos
+💰 PRECIO TOTAL: $${cart.totalPrice.toLocaleString('es-CO')} COP
+    `;
     
-    // Cargar tallas seleccionadas
-    const savedCollarSize = localStorage.getItem("size_collar");
-    const savedShirtfrontSize = localStorage.getItem("size_shirtfront");
+    alert(cartSummary);
+  };
+
+  // Función para enviar carrito por WhatsApp
+  const sendCartToWhatsApp = () => {
+    const cart = getCart();
+    if (cart.items.length === 0) {
+      alert("🛒 El carrito está vacío. Agrega productos antes de enviar.");
+      return;
+    }
+
+    const message = getCartForWhatsApp();
+    const encodedMessage = encodeURIComponent(message);
+    const phoneNumber = "3195752651";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     
-    setSelectedSizes((prev) => ({
-      ...prev,
-      collar: savedCollarSize || "XXS-XS-S",
-      shirtfront: savedShirtfrontSize || "XXS-XS-S",
-    }));
-  }, []);
+    window.open(whatsappUrl, "_blank");
+  };
 
   return (
     <main className={styles.market__health}>
@@ -212,6 +216,24 @@ const MarketPets: React.FC = () => {
         <div className={styles.bg__img}>
           <img src="/Market/pets-home.webp" alt="Fondo Health" />
         </div>
+      </section>
+
+      {/* Botones para gestionar el carrito */}
+      <section className={styles.cart__actions} style={{ textAlign: 'center', margin: '2rem 0' }}>
+        <button 
+          onClick={viewCart}
+          style={{ 
+            marginRight: '1rem', 
+            padding: '0.5rem 1rem', 
+            backgroundColor: '#6c5ce7', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '5px',
+            cursor: 'pointer'
+          }}
+        >
+          🛒 Ver Carrito
+        </button>
       </section>
 
       {/* Sección que muestra los collares */}
@@ -244,9 +266,9 @@ const MarketPets: React.FC = () => {
               </button>
               <button 
                 className={styles.add__cart}
-                onClick={() => sendWhatsAppMessage("collar")}
+                onClick={() => addProductToCart("collar")}
               >
-                Comprar
+                🛒 Agregar al Carrito
               </button>
             </div>
 
@@ -293,9 +315,9 @@ const MarketPets: React.FC = () => {
               <button className={styles.add__cart}>$45.000 cop</button>
               <button 
                 className={styles.add__cart}
-                onClick={() => sendWhatsAppMessage("tags")}
+                onClick={() => addProductToCart("tags")}
               >
-                Comprar
+                🛒 Agregar al Carrito
               </button>
             </div>
 
@@ -343,9 +365,9 @@ const MarketPets: React.FC = () => {
               <button className={styles.add__cart}>$15.000 cop</button>
               <button 
                 className={styles.add__cart}
-                onClick={() => sendWhatsAppMessage("medals")}
+                onClick={() => addProductToCart("medals")}
               >
-                Comprar
+                🛒 Agregar al Carrito
               </button>
             </div>
 
@@ -404,9 +426,9 @@ const MarketPets: React.FC = () => {
               </button>
               <button 
                 className={styles.add__cart}
-                onClick={() => sendWhatsAppMessage("shirtfront")}
+                onClick={() => addProductToCart("shirtfront")}
               >
-                Comprar
+                🛒 Agregar al Carrito
               </button>
             </div>
 

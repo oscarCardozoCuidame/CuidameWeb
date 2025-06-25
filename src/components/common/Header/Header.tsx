@@ -13,7 +13,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ className }) => {
   // Utilizamos nuestro hook para determinar si es móvil
   const isMobile = useIsMobile(1020);
-  
+ 
   // Estados para el manejo del menú móvil
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
