@@ -6,6 +6,10 @@
     
 }
 
+.main {
+    padding: 10% 0 5%;
+}
+
 .footer {
     justify-self: anchor-center;
 }

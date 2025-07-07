@@ -17,7 +17,7 @@ const MarketLayout: React.FC = () => {
     <div className={styles.market_layout} >
       <Header className={styles.header} />
       
-      <main>
+      <main className={styles.main}>
         <Routes>
           {/* Ruta principal del mercado */}
           <Route path="/" element={<MarketHome />} />
@@ -26,18 +26,11 @@ const MarketLayout: React.FC = () => {
           <Route path="/health" element={<MarketHealth />} />
           <Route path="/pets" element={<MarketPets />} />
           <Route path="/checkout" element={
-            <Checkout
-              onPayment={async (paymentData) => {
-                // Manejar el pago
-                console.log('Procesando pago:', paymentData);
-              }}
-              onCartUpdate={() => {
-                // Opcional: callback cuando el carrito cambia
-                console.log('Carrito actualizado');
-              }}
-              isLoading={false}
-            />
-          } />
+              <Checkout
+                isLoading={false}
+              />
+            } 
+          />
         </Routes>
       </main>
       

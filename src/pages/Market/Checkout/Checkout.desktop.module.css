@@ -1,10 +1,8 @@
 /* CheckoutDesktop.module.css */
 .container {
-  height: 80vh;
+  height: 100vh;
   max-width: 1200px;
-  margin: auto auto;
-  margin-bottom: 4rem;
-  margin-top: 10rem;
+  margin: 2rem auto;
   background: white;
   border-radius: 20px;
   overflow: hidden;

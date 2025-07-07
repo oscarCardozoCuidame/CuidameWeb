@@ -1,13 +1,13 @@
 // Checkout.tsx - Versión con suscripciones al cartStore
 import React, { useState, useEffect } from 'react';
-import { 
-  getCart, 
-  updateItemQuantity, 
-  removeFromCart, 
+import {
+  getCart,
+  updateItemQuantity,
+  removeFromCart,
   getCartForWhatsApp,
   subscribeToCart,
   type CartItem,
-  type CartStore 
+  type CartStore
 } from '../../../utils/cartStore'; // Usar el cartStore mejorado
 import desktopStyles from './Checkout.desktop.module.css';
 import mobileStyles from './Checkout.mobile.module.css';
@@ -17,21 +17,21 @@ export interface PaymentSummary {
   items: CartItem[];
   subtotal: number;
   shipping: number;
-  tax: number;
   total: number;
 }
 
 export interface CheckoutProps {
-  onPayment?: (paymentData: PaymentSummary) => Promise<void>;
   isLoading?: boolean;
   onCartUpdate?: () => void;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ 
-  onPayment,
+const Checkout: React.FC<CheckoutProps> = ({
   isLoading = false,
   onCartUpdate
 }) => {
+  const public_key = 'pub_test_cI8wkLBO42suNLMwlXnvPW10RMMpQvVM';
+  const integrity_key = 'test_integrity_Hn2hDHGpHzuqndnqmyz3eYAnYrxABN6d';
+
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [cartData, setCartData] = useState<CartStore>(() => getCart());
 
@@ -71,10 +71,10 @@ const Checkout: React.FC<CheckoutProps> = ({
     const newQuantity = item.quantity + change;
     console.log('Actualizando cantidad:', { item: item.name, newQuantity });
     updateItemQuantity(
-      item.id, 
-      newQuantity, 
-      item.size, 
-      item.color, 
+      item.id,
+      newQuantity,
+      item.size,
+      item.color,
       item.plateColor
     );
   };
@@ -87,40 +87,14 @@ const Checkout: React.FC<CheckoutProps> = ({
   const calculateSummary = (): PaymentSummary => {
     const subtotal: number = cartData.totalPrice;
     const shipping: number = cartData.items.length > 0 ? 15000 : 0;
-    const tax: number = subtotal * 0.19;
-    const total: number = subtotal + shipping + tax;
+    const total: number = subtotal + shipping;
 
-    return { 
+    return {
       items: cartData.items,
-      subtotal, 
-      shipping, 
-      tax, 
-      total 
+      subtotal,
+      shipping,
+      total
     };
-  };
-
-  const handlePayment = async (): Promise<void> => {
-    if (cartData.items.length === 0) {
-      alert('Tu carrito está vacío');
-      return;
-    }
-
-    if (!onPayment) {
-      console.error('onPayment callback no está definido');
-      return;
-    }
-
-    setIsProcessing(true);
-    
-    try {
-      const summary: PaymentSummary = calculateSummary();
-      await onPayment(summary);
-    } catch (error) {
-      console.error('Error al procesar el pago:', error);
-      alert('Error al procesar el pago. Intenta nuevamente.');
-    } finally {
-      setIsProcessing(false);
-    }
   };
 
   const handleWhatsAppShare = (): void => {
@@ -133,53 +107,19 @@ const Checkout: React.FC<CheckoutProps> = ({
   const getItemDisplayName = (item: CartItem): string => {
     let displayName = item.name;
     const details: string[] = [];
-    
+
     if (item.size) details.push(`Talla: ${item.size}`);
     if (item.color) details.push(`Color: ${item.color}`);
     if (item.plateColor) details.push(`Placa: ${item.plateColor}`);
-    
+
     if (details.length > 0) {
       displayName += ` (${details.join(', ')})`;
     }
-    
+
     return displayName;
   };
 
-  /*
-  let checkoutWompi = new WidgetCheckout({
-  currency: 'COP',
-  amountInCents: 2490000,
-  reference: 'AD002901221',
-  publicKey: 'pub_fENJ3hdTJxdzs3hd35PxDBSMB4f85VrgiY3b6s1',
-  signature: {integrity : '3a4bd1f3e3edb5e88284c8e1e9a191fdf091ef0dfca9f057cb8f408667f054d0'}
-  redirectUrl: 'https://transaction-redirect.wompi.co/check', // Opcional
-  expirationTime: '2023-06-09T20:28:50.000Z', // Opcional
-  taxInCents: { // Opcional
-    vat: 1900,
-    consumption: 800
-  }
-  customerData: { // Opcional
-    email:'lola@gmail.com',
-    fullName: 'Lola Flores',
-    phoneNumber: '3040777777',
-    phoneNumberPrefix: '+57',
-    legalId: '123456789',
-    legalIdType: 'CC'
-  }
-  shippingAddress: { // Opcional
-    addressLine1: "Calle 123 # 4-5",
-    city: "Bogota",
-    phoneNumber: '3019444444',
-    region: "Cundinamarca",
-    country: "CO"
-  }
-})
-  */
-
   const { subtotal, shipping, total }: PaymentSummary = calculateSummary();
-
-  // Debug: mostrar estado actual
-  console.log('Renderizando Checkout con cartData:', cartData);
 
   // Estado de carrito vacío
   if (cartData.items.length === 0) {
@@ -193,7 +133,7 @@ const Checkout: React.FC<CheckoutProps> = ({
           <div className={styles.emptyCartIcon}>🛒</div>
           <h3>Tu carrito está vacío</h3>
           <p>Agrega algunos productos para continuar</p>
-          <button 
+          <button
             onClick={() => {
               console.log('Estado actual del carrito:', getCart());
               setCartData(getCart());
@@ -207,6 +147,15 @@ const Checkout: React.FC<CheckoutProps> = ({
     );
   }
 
+  const createPaymentKey = (): string => {
+    let key = '';
+    for (let i = 0; i < 16; i++) {
+      key += Math.floor(Math.random() * 16).toString(16);
+    }
+    return key;
+  };
+
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -219,7 +168,7 @@ const Checkout: React.FC<CheckoutProps> = ({
           <h2 className={styles.cartTitle}>
             🛍️ Tu Carrito de Compras ({cartData.totalItems} productos)
           </h2>
-          
+
           <div className={styles.cartContainer}>
             {cartData.items.map((item: CartItem, index: number) => (
               <div key={`${item.id}-${item.size}-${item.color}-${item.plateColor}-${index}`} className={styles.cartItem}>
@@ -241,8 +190,8 @@ const Checkout: React.FC<CheckoutProps> = ({
                   </div>
                 </div>
                 <div className={styles.quantityControls}>
-                  <button 
-                    className={styles.qtyBtn} 
+                  <button
+                    className={styles.qtyBtn}
                     onClick={() => updateQuantity(item, -1)}
                     disabled={item.quantity <= 1 || isLoading}
                     type="button"
@@ -250,8 +199,8 @@ const Checkout: React.FC<CheckoutProps> = ({
                     -
                   </button>
                   <span className={styles.qtyDisplay}>{item.quantity}</span>
-                  <button 
-                    className={styles.qtyBtn} 
+                  <button
+                    className={styles.qtyBtn}
                     onClick={() => updateQuantity(item, 1)}
                     disabled={isLoading}
                     type="button"
@@ -259,8 +208,8 @@ const Checkout: React.FC<CheckoutProps> = ({
                     +
                   </button>
                 </div>
-                <button 
-                  className={styles.removeBtn} 
+                <button
+                  className={styles.removeBtn}
                   onClick={() => removeItem(item)}
                   disabled={isLoading}
                   type="button"
@@ -274,7 +223,7 @@ const Checkout: React.FC<CheckoutProps> = ({
 
         <div className={styles.paymentSection}>
           <h2 className={styles.paymentTitle}>💳 Resumen del Pedido</h2>
-          
+
           <div className={styles.orderSummary}>
             <div className={styles.summaryRow}>
               <span>Subtotal:</span>
@@ -290,23 +239,16 @@ const Checkout: React.FC<CheckoutProps> = ({
             </div>
           </div>
 
-          <button 
-            className={styles.payButton} 
-            onClick={handlePayment}
-            disabled={isProcessing || isLoading || !onPayment}
-            type="button"
-          >
-            <span className={styles.payText}>
-              {isProcessing ? 'Procesando...' : 'Pagar con Wompi'}
-            </span>
-            {isProcessing && (
-              <div className={styles.loading}>
-                <div className={styles.spinner}></div>
-              </div>
-            )}
-          </button>
+          <form action="https://checkout.wompi.co/p/" method="GET">
+            <input type="hidden" name="public-key" value={public_key} />
+            <input type="hidden" name="currency" value="COP" />
+            <input type="hidden" name="amount-in-cents" value={total * 100} />
+            <input type="hidden" name="reference" value={createPaymentKey()} />
+            <input type="hidden" name="signature:integrity" value={integrity_key} />
+            <button type="submit" className={`${styles.payButton} ${styles.whatsappBtn}`}>Pagar con Wompi</button>
+          </form>
 
-          <button 
+          <button
             className={`${styles.payButton} ${styles.whatsappBtn}`}
             onClick={handleWhatsAppShare}
             disabled={isLoading}
