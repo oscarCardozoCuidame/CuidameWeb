@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.desktop.css";
 import "./Header.mobile.css";
+import CartStore from "../CartStoreIcon/CartStoreIcon"
 import Button from "../../ui/Button";
+import LoginModal from "../../common/LoginModal/LoginModal";
 import { openWhatsAppChat } from "../../../utils/whatsapp.utils";
 import { useIsMobile } from "../../../utils/useResponsiveStyles";
 
@@ -17,6 +19,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   // Estados para el manejo del menú móvil
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Función para manejar el clic en el botón de contacto
   const handleContactClick = () => {
@@ -182,10 +185,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             </NavLink>
           </nav>
           <div className="header__buttons">
+            <CartStore></CartStore>
             <Button texto="Contáctanos" onClick={handleContactClick} />
-            <Button color={"blue"} texto="Ingresar" />
+            <Button color={"blue"} texto="Ingresar" onClick={() => isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true) }/>
           </div>
         </div>
+
+        <LoginModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+        />
       </header>
     );
   };

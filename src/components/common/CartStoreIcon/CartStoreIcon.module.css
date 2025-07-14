@@ -1,0 +1,62 @@
+.cartContainer {
+  position: relative;
+  cursor: pointer;
+}
+
+.cartIconWrapper {
+  position: relative;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.cartIconWrapper:hover {
+  background-color: #fff7ed; /* orange-50 */
+}
+
+.cartIcon {
+  color: #f97316; /* orange-500 */
+  transition: color 0.2s ease;
+}
+
+.cartIcon:hover {
+  color: #ea580c; /* orange-600 */
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #ef4444; /* red-500 */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  background-color: #1f2937; /* gray-800 */
+  color: white;
+  font-size: 14px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.cartContainer:hover .tooltip {
+  opacity: 1;
+}

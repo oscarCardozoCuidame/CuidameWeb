@@ -42,7 +42,7 @@ const Footer: React.FC<HeaderProps> = ({ className }) => {
                 target="_blank"
               >
                 <img
-                  style={{ width: "0.9rem" }}
+                  style={{ width: "1.5rem" }}
                   src="/SocialMedia/instagram.svg"
                   alt="Instagram"
                 />

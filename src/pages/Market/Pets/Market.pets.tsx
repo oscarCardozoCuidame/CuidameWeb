@@ -179,22 +179,6 @@ ${cart.items.map((item, index) =>
     alert(cartSummary);
   };
 
-  // Función para enviar carrito por WhatsApp
-  const sendCartToWhatsApp = () => {
-    const cart = getCart();
-    if (cart.items.length === 0) {
-      alert("🛒 El carrito está vacío. Agrega productos antes de enviar.");
-      return;
-    }
-
-    const message = getCartForWhatsApp();
-    const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "3195752651";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-    window.open(whatsappUrl, "_blank");
-  };
-
   return (
     <main className={styles.market__health}>
       <h1 className={styles.initial__title}>PRODUCTOS</h1>

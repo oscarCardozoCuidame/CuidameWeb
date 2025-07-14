@@ -1,5 +1,9 @@
 @import './variables.css';
 
+* {
+  font-family: Quicksand, 'Inter', sans-serif;
+}
+
 /* Estilos globales */
 body {
   margin: 0;

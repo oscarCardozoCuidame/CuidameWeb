@@ -2,6 +2,7 @@
 .container {
   max-width: 100%;
   margin: 0;
+  margin-top: -10%;
   background: white;
   border-radius: 0;
   overflow: hidden;
@@ -52,10 +53,6 @@
   align-items: center;
   gap: 8px;
   margin: 0 0 20px 0;
-}
-
-.cartContainer {
-  /* Container for cart items */
 }
 
 .cartItem {
@@ -121,7 +118,6 @@
   align-items: center;
   gap: 12px;
   background: #f0f2ff;
-  padding: 8px 16px;
   border-radius: 25px;
   justify-content: center;
 }
@@ -132,7 +128,6 @@
   border: none;
   width: 35px;
   height: 35px;
-  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -140,6 +135,14 @@
   font-weight: bold;
   font-size: 1rem;
   transition: all 0.3s ease;
+}
+
+.qtyBtnRight {
+  border-radius: 0 25px 25px 0;
+}
+
+.qtyBtnLeft {
+  border-radius: 25px 0 0 25px;
 }
 
 .qtyBtn:hover {
@@ -185,8 +188,6 @@
   order: 2;
   position: sticky;
   bottom: 0;
-  margin: 0 -15px;
-  border-radius: 15px 15px 0 0;
   box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
 }
 
@@ -223,6 +224,72 @@
   border-top: 2px solid #e2e8f0;
   padding-top: 12px;
   margin-top: 12px;
+}
+
+.formContainer {
+  background: #f8f9ff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.formTitle {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.customerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formLabel {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.formInput {
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.formButtons {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.backBtn {
+  flex: 1;
+}
+
+.submitBtn {
+  flex: 2;
 }
 
 .payButton {
